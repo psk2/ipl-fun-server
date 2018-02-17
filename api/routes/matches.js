@@ -4,24 +4,11 @@ const Matches = require('../models/matches')
 const mongoose = require('mongoose');
 const multer = require('multer')
 const checkAuth =require('../middlewarae/check-auth')
-const matchesController = require('../controllers/matchesController')
-const storage = multer.diskStorage({
-    destination: (req,file,cb) => {
-        cb(null,'./uploads')
-    },
-    filename: (req,file,cb) => {
-        cb(null, new Date().toISOString() + file.originalname)
-    }
-})
+const matchesController = require('../controllers/matchesController');
 
-const uploads = multer({storage:storage, limits:{
-    fileSize: 1024 * 1024 *5
-}});
-
-console.log('inside router file');
 router.get('/', checkAuth, matchesController.getAllMatches)
 
-router.post('/',checkAuth, uploads.single('matchImage') , matchesController.createMatch)
+router.post('/',checkAuth, matchesController.createMatch)
 
 router.get('/:matchId',checkAuth,matchesController.getMatchById)
 

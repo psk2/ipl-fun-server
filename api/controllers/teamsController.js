@@ -49,7 +49,8 @@ exports.createTeam = (req, res, next) => {
     const team = new Team({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
-        code: req.body.code
+        code: req.body.code,
+        teamImage:req.file.path
     });
     team.save()
         // .exec()
@@ -75,7 +76,7 @@ exports.updateTeam =  (req, res, next) => {
         updateObj[ops.key] = ops.value
     }
     console.log('updateObj', updateObj)
-    
+
     Team.update(
         {
             _id: id

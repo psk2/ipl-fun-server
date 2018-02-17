@@ -48,19 +48,19 @@ exports.getMatchById = (req, res, next) => {
 }
 
 exports.createMatch = (req, res, next) => {
-    console.log("inside this")
+    console.log('req.body', req.body)
     const match = new Match({
         _id: new mongoose.Types.ObjectId(),
         teamA: req.body.teamA,
         teamB: req.body.teamB,
-        matchImage: req.file.path,
+        matchDate: req.body.matchDate,
         result: req.body.result
     });
     match.save()
         // .exec()
         .then(match => {
             res.status(201).json({
-                message: "Handling POST request to matches",
+                message: "Created Match",
                 createdMatch: match
             });
         })
